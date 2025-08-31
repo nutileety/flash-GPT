@@ -3,7 +3,7 @@ import { useAppContext } from '../context/AppContext'
 import { assets } from '../assets/assets';
 
 const Sidebar = () => {
-  const [ user, chats, setSelectedChat, theme, setTheme ] = useAppContext(); 
+  const { user, chats, setSelectedChat, theme, setTheme } = useAppContext(); 
   const [ search, setSearch ] = useState('');  
 
   return (

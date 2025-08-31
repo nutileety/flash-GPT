@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { dummyChats, dummyUserData } from '../assets/assets'
 
 
-const AppContext = createContext();
+export const AppContext = createContext();
 
 export const AppContextProvider = ({children}) => {
     const navigate = useNavigate();
