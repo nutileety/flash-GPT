@@ -1,4 +1,5 @@
-<svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9.27539 9.30664L11.7108 11.742" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M10.4936 5.65205C10.4936 8.34214 8.31284 10.5229 5.62276 10.5229C2.93268 10.5229 0.751953 8.34214 0.751953 5.65205C0.751953 2.96198 2.93268 0.78125 5.62276 0.78125C8.31284 0.78125 10.4936 2.96198 10.4936 5.65205Z" stroke="white"/>
+<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg fill="#000000" width="800px" height="800px" viewBox="0 -0.24 28.423 28.423" id="_02_-_Search_Button" data-name="02 - Search Button" xmlns="http://www.w3.org/2000/svg">
+  <path id="Path_215" data-name="Path 215" d="M14.953,2.547A12.643,12.643,0,1,0,27.6,15.19,12.649,12.649,0,0,0,14.953,2.547Zm0,2A10.643,10.643,0,1,1,4.31,15.19,10.648,10.648,0,0,1,14.953,4.547Z" transform="translate(-2.31 -2.547)" fill-rule="evenodd"/>
+  <path id="Path_216" data-name="Path 216" d="M30.441,28.789l-6.276-6.276a1,1,0,1,0-1.414,1.414L29.027,30.2a1,1,0,1,0,1.414-1.414Z" transform="translate(-2.31 -2.547)" fill-rule="evenodd"/>
 </svg>
