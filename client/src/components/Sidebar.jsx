@@ -7,12 +7,12 @@ import moment from 'moment'
 
 const Sidebar = () => {
   const { user, chats, setSelectedChat, theme, setTheme, navigate } = useAppContext(); 
-  const [ search, setSearch ] = useState('');  
+  const [ search, setSearch ] = useState('');
 
   return (
     <div className='flex flex-col h-screen min-w-64 p-5 dark:bg-gradient-to-b 
     from-[#242124]/30 to-[#000000]/30 border-r border-[#80609f]/30 backdrop-blur-3xl
-    transistion-all duration-500 max-md:absolute left-0 z-1'>
+    transition-all duration-500 max-md:relative left-0 z-1'>
       {/* logo */}
       <img src={theme === 'dark' ? assets.logo_full : assets.logo_full_dark} alt=""
         className='w-full max-w-48' />
@@ -99,13 +99,20 @@ const Sidebar = () => {
       </div>
 
       {/* user Account */}
-      <div  className='flex items-center gap-3 p-2 mt-2 text-sm border 
-      border-gray-300 dark:border-gray-500 cursor-pointer  rounded-md'>
-        <img src={assets.user_icon} className='w-6 not-dark:invert' alt=''/>
-        <div className='flex col text-small'>
-          <p>{user ? user.name : 'Login with user'}</p>
-        </div>
-      </div>    
+      <div  className='flex group items-center gap-3 p-2 mt-2 text-sm border 
+      border-gray-300 dark:border-gray-500 cursor-pointer rounded-md'>
+        <img src={assets.user_icon} className='w-7 not-dark:invert' alt=''/>
+        <p className='flex-1 text-sm dark:text-primary truncate'>{user ? user.name : 'Login with user'}</p>
+        {user && <img 
+                  src={assets.logout_icon} 
+                  className='w-5 hidden group-hover:block cursor-pointer not-dark:invert'
+                  />}
+      </div> 
+
+      <img src={assets.close_icon} 
+           className='absolute top-3 right-3 w-5 h-5 md:hidden cursor-pointer not-dark:invert'
+           alt=""/>
+
     </div>
   )
 }
