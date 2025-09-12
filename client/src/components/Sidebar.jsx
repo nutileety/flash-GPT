@@ -55,6 +55,7 @@ const Sidebar = () => {
           </div>
           ))
         }
+        
       </div>
 
         {/* Community images */}
@@ -97,6 +98,14 @@ const Sidebar = () => {
         </label>
       </div>
 
+      {/* user Account */}
+      <div  className='flex items-center gap-3 p-2 mt-2 text-sm border 
+      border-gray-300 dark:border-gray-500 cursor-pointer  rounded-md'>
+        <img src={assets.user_icon} className='w-6 not-dark:invert' alt=''/>
+        <div className='flex col text-small'>
+          <p>{user ? user.name : 'Login with user'}</p>
+        </div>
+      </div>    
     </div>
   )
 }
