@@ -17,11 +17,11 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
 
       {/* logo */}
       <img src={theme === 'dark' ? assets.logo_full : assets.logo_full_dark} alt=""
-        className='w-full max-w-48' />
+        className='w-42' />
 
       {/* new chat */}
-      <button className='flex justify-center items-center w-full py-1.5 mt-5 text-white
-        bg-gradient-to-r from-[#A456F7] to-[#3D81F6] text-sm rounded-md cursor-pointer'>
+      <button className='flex justify-center items-center w-full py-1.5 mt-2 text-white
+        bg-gradient-to-r from-[#EB2F42] to-[#F66652] text-sm rounded-md cursor-pointer'>
         <span className='mr-2 text-lg'>+</span> New Chat 
         </button>
 
@@ -46,7 +46,7 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
             setIsMenuOpen(false)}}
             key={chat._id} 
             className=' flex justify-between group p-1 px-2 
-            border border-gray-300 dark:border-[#80609f]/10 dark:bg-[#57317c]/10
+            border border-gray-300 dark:border-[#80609f]/10 dark:bg-[#5c251e]/10
             rounded-md cursor-pointer text-sm'>
             <div>
               <p className='truncate w-full'> 
@@ -96,7 +96,7 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
         <label className='relative inline-flex cursor-pointer'>
           <input onChange={() => setTheme(theme === 'dark' ? 'light' : 'dark')} 
           className='sr-only peer' type='checkbox' checked={theme === 'dark'}/>
-          <div className='w-9 h-5 bg-gray-400 rounded-xl peer-checked:bg-purple-600
+          <div className='w-9 h-5 bg-gray-400 rounded-xl peer-checked:bg-orange-700
             transition-all'>
           </div>
           <span className='absolute left-1 top-1 w-3 h-3 bg-white rounded-full
@@ -108,7 +108,7 @@ const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
       {/* user Account */}
       <div  className='flex group items-center gap-3 p-2 mt-2 text-sm border 
       border-gray-300 dark:border-gray-500 cursor-pointer rounded-md'>
-        <img src={assets.user_icon} className='w-7 not-dark:invert' alt=''/>
+        <img src={assets.user_icon} className='w-7' alt=''/>
         <p className='flex-1 text-sm dark:text-primary truncate'>{user ? user.name : 'Login with user'}</p>
         {user && <img 
                   src={assets.logout_icon} 
