@@ -5,14 +5,16 @@ import moment from 'moment'
 
 
 
-const Sidebar = () => {
+const Sidebar = ({isMenuOpen, setIsMenuOpen}) => {
   const { user, chats, setSelectedChat, theme, setTheme, navigate } = useAppContext(); 
   const [ search, setSearch ] = useState('');
 
   return (
-    <div className='flex flex-col h-screen min-w-64 p-5 dark:bg-gradient-to-b 
-    from-[#242124]/30 to-[#000000]/30 border-r border-[#80609f]/30 backdrop-blur-3xl
-    transition-all duration-500 max-md:relative left-0 z-1'>
+    <div className={`flex flex-col h-screen min-w-64 p-5 not-dark:bg-white 
+      dark:bg-gradient-to-b from-[#242124] to-[#000000] border-r 
+      border-[#80609f]/30 backdrop-blur-3xl transition-all duration-500 
+      max-md:absolute left-0 z-1 ${!isMenuOpen && 'max-md:-translate-x-full'}`}>
+
       {/* logo */}
       <img src={theme === 'dark' ? assets.logo_full : assets.logo_full_dark} alt=""
         className='w-full max-w-48' />
@@ -38,7 +40,12 @@ const Sidebar = () => {
         {chats.filter((chat) => chat.messages[0] ? 
         chat.messages[0]?.content.toLowerCase().includes(search.toLowerCase()) :
         chat.name.toLowerCase().includes(search.toLowerCase())).map((chat) => (
-          <div key={chat._id} className=' flex justify-between group p-1 px-2 
+          <div onClick={() => {
+            navigate('/');
+            setSelectedChat(chat);
+            setIsMenuOpen(false)}}
+            key={chat._id} 
+            className=' flex justify-between group p-1 px-2 
             border border-gray-300 dark:border-[#80609f]/10 dark:bg-[#57317c]/10
             rounded-md cursor-pointer text-sm'>
             <div>
@@ -59,7 +66,7 @@ const Sidebar = () => {
       </div>
 
         {/* Community images */}
-      <div onClick={() => {navigate('/community')}} className='flex items-center
+      <div onClick={() => {navigate('/community'); setIsMenuOpen(false);}} className='flex items-center
        gap-2 p-1.5 mt-3 text-sm border border-gray-300 dark:border-gray-500 
        cursor-pointer  rounded-md'>
         <img src={assets.gallery_icon} className='w-4 not-dark:invert' alt=''/>
@@ -69,7 +76,7 @@ const Sidebar = () => {
       </div>
 
       {/* credits */}
-      <div onClick={() => {navigate('/credits')}} className='flex items-center 
+      <div onClick={() => {navigate('/credits'); setIsMenuOpen(false);}} className='flex items-center 
         gap-2 p-1.5 mt-3 text-sm border border-gray-300 dark:border-gray-500 
         cursor-pointer rounded-md hover:scale-103 transition-all'>
         <img src={assets.diamond_icon} className='w-4 dark:invert' alt=''/>
@@ -109,8 +116,9 @@ const Sidebar = () => {
                   />}
       </div> 
 
-      <img src={assets.close_icon} 
-           className='absolute top-3 right-3 w-5 h-5 md:hidden cursor-pointer not-dark:invert'
+      <img onClick={() => setIsMenuOpen(false)} src={assets.close_icon} 
+           className='absolute top-3 right-3 w-5 h-5 md:hidden cursor-pointer 
+           not-dark:invert z-40'
            alt=""/>
 
     </div>
