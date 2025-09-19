@@ -31,7 +31,7 @@ const Message = ({message}) => {
         )
       :
       (
-        <div className='text-sm dark:text-primary reset-tw'>
+        <div className='text-xs dark:text-primary reset-tw'>
           <Markdown>{message.content}</Markdown>
         </div>
       )}
