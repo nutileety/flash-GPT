@@ -21,7 +21,7 @@ const Community = () => {
     <div className='p-8 pl-20 w-full h-full mx-auto xl:px-12 2xl:px-20
     overflow-y-scroll'>
       <h2 className='text-xl font-semibold mb-5 text-gray-600 
-      dark:text-primary-200'> Commmunity Images</h2>
+      dark:text-primary'> Commmunity Images</h2>
       {images.length > 0 ? (
         <div className='flex flex-wrap -mx-2 max-sm:justify-center gap-5'>
           {images.map((item, index) => (
@@ -32,7 +32,7 @@ const Community = () => {
               <img src={item.imageUrl} alt='' className='w-fit h-50 md:h-40
               2xl:h-62 object-cover group-hover:scale-105 transition-transform
               duration-300 ease-in-out jst '/>
-              <p className='absolute bottom-0 right-0 text-xs bg-black/50 
+              <p className='absolute bottom-0 right-0 text-[11px] bg-black/50 
               backdrop-blur text-white px-4 py-1 rounded-tl-lg opacity-0
               group-hover:opacity-100 transition duration-300'> Created by {item.userName}</p>
             </a>
