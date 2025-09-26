@@ -18,7 +18,7 @@ export const AppContextProvider = ({children}) => {
 
     //fetch user 
     const fetchUser = async () => {
-        setUser(dummyUserData)
+        setUser()
     }
 
     useEffect(() => {

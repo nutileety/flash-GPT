@@ -13,7 +13,7 @@ const Loading = () => {
   }, []) 
 
   return (
-    <div className=' bg-gradient-to-b from-[#78211b] to-[black] h-screen
+    <div className='bg-gradient-to-b from-[#78211b] to-[black] h-screen
       w-screen items-center justify-center backdrop-opacity-60 flex text-primary
       text-lg'>
       <div className=''>
