@@ -8,7 +8,7 @@ const connectDB = async () => {
         await mongoose.connect(`${process.env.MONGO_URI}/flashgpt`)
     } catch(error) {
         console.log(error.message)
-    } 
+    }
 }
 
 export default connectDB;
