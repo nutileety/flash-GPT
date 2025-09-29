@@ -1,13 +1,13 @@
 import jwt from "jsonwebtoken"
-import User from "../models/user";
+import User from "../models/user.js";
 
 export const protect = async (req, res, next) => {
     let token =  req.headers.authorization;
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const userId = decoded.id;
+        const userId  = decoded.id;
 
-        const user = await User.findOne(userId)
+        const user = await User.findOne({_id:userId})
 
         if(!user)
             return res.json({success: false, message: "User Authorization failed."});

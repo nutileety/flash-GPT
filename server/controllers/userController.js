@@ -1,11 +1,11 @@
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
-import User from "../models/user";
+import User from "../models/user.js";
 
 
 // tokenization of the user
 const generateToken = (id) => {
-    return jwt.sign({id}, JWT_SECRET, {expiresIn: "30d"});
+    return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: "30d"});
 }
 
 // user Registration API
@@ -50,13 +50,12 @@ export const loginUser = async (req, res) => {
 }
 
 // get user API
-export const getUser = async (res, req) => {
+export const getUser = async (req, res) => {
     try{
-        const user = req.body;
-        return res.json({sucess: true, user})
+        const user = req.user;
+        return res.json({sucess: true, name: user.name, email: user.email})
     }
     catch(error) {
         return res.json({success: false, message: error.message})
     }
 }
-    
