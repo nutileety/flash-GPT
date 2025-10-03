@@ -1,4 +1,5 @@
-import Chat from '../models/chat';
+import Chat from '../models/chat.js';
+import User from '../models/user.js'
 
 export const textMessageController = async (req, res) => {
     try{
@@ -14,7 +15,23 @@ export const textMessageController = async (req, res) => {
             isImage: false    
         })
 
+        // chat prompting api
+        const { choices } = await openai.chat.completions.create({
+            model: "gemini-2.0-flash",
+            messages: [{
+                role: "user",
+                content: prompt,
+            },],
+        });
+
+        const reply = {...choices[0].message, timestamp: Date.now(), isImage: false};
+        res.json({success: true, reply})
         
+        Chat.message.push(reply);
+        await Chat.save();
+
+        await User.updateOne({_id: userId}, {$inc: {credits: -1}});
+
     }
     catch(error) {
         return res.json({success: false, message: error.message});
