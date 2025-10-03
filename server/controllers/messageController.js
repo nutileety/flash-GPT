@@ -10,7 +10,6 @@ export const textMessageController = async (req, res) => {
         chat.message.push({
             role:'user', 
             content: prompt, 
-            isPublished: false, 
             timestamp: Date.now(),
             isImage: false    
         })
@@ -37,3 +36,26 @@ export const textMessageController = async (req, res) => {
         return res.json({success: false, message: error.message});
     }
 }  
+
+// Iamge generation controller
+export const imageMessageController = async (req, res) => {
+    try{
+        const userId = req.user._id;
+
+        if(req.user.credits < 2)
+            return res.json({success: false, message: "You doesn't have enough credits."})
+
+        const { prompt, chatId, isPublished } = req.body;
+
+        const chat = await Chat.findOne({userId, id: chatId});
+        Chat.message.push({
+            role: 'user', 
+            content: prompt, 
+            timestamp: Date.now(), 
+            isImage: false
+        });
+    }
+    catch(error) {
+        return res.json({success: false, message: error.message})
+    }
+}
