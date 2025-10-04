@@ -1,9 +1,16 @@
 import Chat from '../models/chat.js';
-import User from '../models/user.js'
+import User from '../models/user.js';
+import axios from  'axios'
+import  imagekit  from '../configs/imageKit.js';
+import  openai  from '../configs/openai.js';
 
 export const textMessageController = async (req, res) => {
     try{
         const userId = req.user._id;
+
+        if(req.user.credits < 1)
+            return res.json({success: false, message: "You doesn't have enough credits."})
+
         const { chatId, prompt } = req.body;
 
         const chat = await Chat.findOne({userId, _id:chatId});
@@ -47,13 +54,50 @@ export const imageMessageController = async (req, res) => {
 
         const { prompt, chatId, isPublished } = req.body;
 
-        const chat = await Chat.findOne({userId, id: chatId});
-        Chat.message.push({
+        const chat = await Chat.findOne({userId, _id:chatId});
+        chat.message.push({
             role: 'user', 
             content: prompt, 
             timestamp: Date.now(), 
             isImage: false
         });
+
+        // encode the pompt
+        const encodePrompt = encodeURIComponent(prompt);
+
+        // construct the ai image generation url
+        const generatedImgageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT}/
+        ik_genimg-prompt-${encodePrompt}/flashgpt/${Date.now()}.png?tr=w-800,h-800`;
+
+        // fetching the image generation response from ImageKit
+        const aiImageResponse = await axios.get(generatedImgageUrl, {
+            responseType: "arraybuffer"
+        })
+
+        // convert to base64 image
+        const base64Image = `data:image/png;base64,${Buffer.from(aiImageResponse.data,
+            "binary").toString('base64')}`;
+            
+        const uploadResponse = await imagekit.upload({
+            file: base64Image,
+            fileName: `${Date.now()}.png`,
+            folder: 'flashgpt'
+        });
+
+        const reply = {
+            role: 'assistant',
+            content: uploadResponse.url,
+            timestamp: Date.now(),
+            isImage: true,
+            isPublished
+        }
+
+        Chat.messages.push(reply);
+        await Chat.save();
+        await User.updateOne({_id: userId}, {$inc: {credits: -2}});
+
+        return res.json({success: true, reply});
+
     }
     catch(error) {
         return res.json({success: false, message: error.message})

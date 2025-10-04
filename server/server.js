@@ -4,6 +4,7 @@ import cors from 'cors'
 import connectDB from './configs/db.js';
 import userRouter from './routes/userRoutes.js';
 import chatRouter from './routes/chatRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
 
 const app = express();
 await connectDB();
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 })
 app.use('/api/user', userRouter)
 app.use('/api/chat', chatRouter)
+app.use('/api/message', messageRoutes);
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
