@@ -33,8 +33,8 @@ export const textMessageController = async (req, res) => {
         const reply = {...choices[0].message, timestamp: Date.now(), isImage: false};
         res.json({success: true, reply})
         
-        Chat.message.push(reply);
-        await Chat.save();
+        chat.message.push(reply);
+        await chat.save();
 
         await User.updateOne({_id: userId}, {$inc: {credits: -1}});
 
@@ -63,16 +63,17 @@ export const imageMessageController = async (req, res) => {
         });
 
         // encode the pompt
-        const encodePrompt = encodeURIComponent(prompt);
+        const encodedPrompt = encodeURIComponent(prompt);
 
         // construct the ai image generation url
-        const generatedImgageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT}/
-        ik_genimg-prompt-${encodePrompt}/flashgpt/${Date.now()}.png?tr=w-800,h-800`;
+        const generatedImageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT}/ik-genimg-prompt-${encodedPrompt}/flashgpt/${Date.now()}.png?tr=w-800,h-800`;
+        console.log("Generated image URL:", generatedImageUrl);
 
         // fetching the image generation response from ImageKit
-        const aiImageResponse = await axios.get(generatedImgageUrl, {
+        const aiImageResponse = await axios.get(generatedImageUrl, {
             responseType: "arraybuffer"
         })
+        console.log("aim", aiImageResponse.data)
 
         // convert to base64 image
         const base64Image = `data:image/png;base64,${Buffer.from(aiImageResponse.data,
@@ -92,12 +93,11 @@ export const imageMessageController = async (req, res) => {
             isPublished
         }
 
-        Chat.messages.push(reply);
-        await Chat.save();
-        await User.updateOne({_id: userId}, {$inc: {credits: -2}});
+        res.json({success: true, reply});
 
-        return res.json({success: true, reply});
-
+        chat.message.push(reply);
+        await chat.save();
+        await User.updateOne({_id: userId}, {$inc: {credits: -2}}); 
     }
     catch(error) {
         return res.json({success: false, message: error.message})
