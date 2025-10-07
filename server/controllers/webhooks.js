@@ -24,12 +24,14 @@ export const stripewebhooks = async (request, response) => {
 
                 const session = sessionList.data[0];
                 const { transactionId, appId } = session.metadata;
+                console.log(session)
 
                 if(appId === 'flashgpt') {
                     const transaction = await Transaction.findOne({
                         _id: transactionId,
                         isPaid: false
                     })
+                    console.log(transaction)
 
                     // update user account credits
                     await User.updateOne({
@@ -42,7 +44,7 @@ export const stripewebhooks = async (request, response) => {
                     })
 
                     // update transaction
-                    transaction.isPaid = ture;
+                    transaction.isPaid = true;
                     await transaction.save();
                 }
                 else {
